@@ -66,10 +66,17 @@
 
 .tabs .tab.active, .tabs .tab:hover {
   background: #61dafb;
-  color: #ffffff;
   -webkit-box-shadow: inset 0px -9px 12px 1px #2086a2;
   box-shadow: inset 0px -9px 12px 1px #2086a2;
   border-radius: 40px 40px 0px 0px;
+}
+
+.tabs .tab a {
+  color: #282c34;
+}
+
+.tabs .tab.active a {
+  color: #fff;
 }
 
 .tabs .tab.logout {
@@ -213,4 +220,11 @@
   font-size: large;
   font-weight: bold;
   text-transform: capitalize;
+}
+
+.page-container {
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
 }

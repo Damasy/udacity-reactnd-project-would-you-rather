@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { getUserImage, isPhoneWindow } from '../utilities/global';
 
 class Tabs extends React.Component {
@@ -7,14 +8,17 @@ class Tabs extends React.Component {
             {
                 name: 'Home',
                 isActive: true,
+                link: '/',
             },
             {
                 name: 'New Question',
                 isActive: false,
+                link: '/add',
             },
             {
                 name: 'Leader Board',
                 isActive: false,
+                link: '/leaderboard',
             }
         ],
         isMenuOpen: !isPhoneWindow(),
@@ -56,7 +60,11 @@ class Tabs extends React.Component {
                     {tabs.map((tab) => (
                         <li key={tab.name} 
                             className={tab.isActive ? "tab active" : "tab"}
-                            onClick={ () => this.onTabClick(tab.name)}>{tab.name}</li>
+                            onClick={ () => this.onTabClick(tab.name)}>
+                                 <Link to={tab.link} >
+                                 {tab.name}
+                                </Link>
+                        </li>
                     ))}
                     { isLoggedIn && this.renderUserProfile(user)}
                     { isLoggedIn && <li className="tab logout" onClick={onLogoutClick}>Log out</li>}

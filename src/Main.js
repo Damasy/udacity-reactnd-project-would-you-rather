@@ -1,7 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import { BrowserRouter , Route, Switch } from 'react-router-dom';
 import Login from './components/Login';
 import Tabs from './components/Tabs';
+import Home from './Pages/Home';
+import LeaderBoard from './Pages/LeaderBoard';
+import NewQuestion from './Pages/NewQuestion'
 import { changeLoginStatus, loadAllUsers } from './Actions/Users';
 import { formateUsersList } from './utilities/global';
 
@@ -21,9 +25,11 @@ class Main extends React.Component {
         const { isLoggedIn } = this.props.user;
         if (isLoggedIn) {
             return (
-                <div>
-                    load taps here
-                </div>
+                <Switch>
+                    <Route exact path ="/" component={Home} />
+                    <Route path ="/leaderboard" component={LeaderBoard} />
+                    <Route path ="/add" component={NewQuestion} />
+                </Switch>
             )
         } else {
             return (
@@ -39,14 +45,16 @@ class Main extends React.Component {
         const { currentUser, isLoggedIn } = this.props.user;
  
         return (
-            <main>
-                <Tabs 
-                    isLoggedIn={isLoggedIn}
-                    user={currentUser}
-                    onLogoutClick={() => this.props.changeLoginStatus(false)}
-                />
-                {this.renderBody()}
-            </main>
+            <BrowserRouter>
+                 <main>
+                    <Tabs 
+                        isLoggedIn={isLoggedIn}
+                        user={currentUser}
+                        onLogoutClick={() => this.props.changeLoginStatus(false)}
+                    />
+                    {this.renderBody()}
+                </main>
+            </BrowserRouter>
         )
     }
 };
