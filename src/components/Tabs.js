@@ -59,9 +59,8 @@ class Tabs extends React.Component {
                 <ul className="tabs" style={{display: isMenuOpen ? "block" : "none"}}>
                     {tabs.map((tab) => (
                         <li key={tab.name} 
-                            className={tab.isActive ? "tab active" : "tab"}
-                            onClick={ () => this.onTabClick(tab.name)}>
-                                 <Link to={tab.link} >
+                            className={tab.isActive ? "tab active" : "tab"}>
+                                 <Link to={tab.link} onClick={ () => this.onTabClick(tab.name)} >
                                  {tab.name}
                                 </Link>
                         </li>

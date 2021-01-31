@@ -5,7 +5,7 @@ import Login from './components/Login';
 import Tabs from './components/Tabs';
 import Home from './Pages/Home';
 import LeaderBoard from './Pages/LeaderBoard';
-import NewQuestion from './Pages/NewQuestion'
+import NewQuestion from './Pages/NewQuestion';
 import { changeLoginStatus, loadAllUsers } from './Actions/Users';
 import { formateUsersList } from './utilities/global';
 
