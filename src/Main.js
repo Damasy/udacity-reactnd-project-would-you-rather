@@ -6,6 +6,7 @@ import Tabs from './components/Tabs';
 import Home from './Pages/Home';
 import LeaderBoard from './Pages/LeaderBoard';
 import NewQuestion from './Pages/NewQuestion';
+import QuestionDetails from './Pages/QuestionDetails'
 import { changeLoginStatus, loadAllUsers } from './Actions/Users';
 import { formateUsersList } from './utilities/global';
 
@@ -29,6 +30,7 @@ class Main extends React.Component {
                     <Route exact path ="/" component={Home} />
                     <Route path ="/leaderboard" component={LeaderBoard} />
                     <Route path ="/add" component={NewQuestion} />
+                    <Route path ="/questions/:question_id" component={QuestionDetails} />
                 </Switch>
             )
         } else {

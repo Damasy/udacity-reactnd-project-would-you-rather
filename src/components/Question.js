@@ -1,10 +1,15 @@
 import React from 'react';
-import { Form, Radio, Button } from 'semantic-ui-react'
+import { Form, Radio, Button } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
 class Question extends React.Component {
-    state = {}
+    state = {
+        answer: ''
+    }
 
-    handleChange = (e, { answer }) => this.setState({ answer })
+    handleChange = (e, { value }) => {
+        this.setState({ answer: value })
+    }
 
     renderAbstractedBody = () => {
         return (
@@ -12,7 +17,15 @@ class Question extends React.Component {
                 <div className="q-part">
                     .. a ..
                 </div>
-                <button className="submit-btn poll">View Poll</button>
+                <button className="submit-btn poll">
+                    <Link 
+                        to={{
+                            pathname: '/questions/idid',
+                        }} 
+                        >
+                        View Poll
+                    </Link>
+                </button>
             </div>
         );
     }
@@ -20,10 +33,10 @@ class Question extends React.Component {
     renderFullBody = () => {
         return (
             <div className="full-body">
-                 <Form>
+                 <Form className="q-form">
                     <Form.Field>
                     <Radio
-                        label='Choose this'
+                        label='question first choise'
                         name='radioGroup'
                         value='this'
                         checked={this.state.answer === 'this'}
@@ -32,14 +45,23 @@ class Question extends React.Component {
                     </Form.Field>
                     <Form.Field>
                     <Radio
-                        label='Or that'
+                        label='question second choise'
                         name='radioGroup'
                         value='that'
                         checked={this.state.answer === 'that'}
                         onChange={this.handleChange}
                     />
                     </Form.Field>
-                    <Button fluid>Fits to Container</Button>
+                    <Button fluid className="submit-btn poll">
+                        <Link 
+                            to={{
+                                pathname: '/questions',
+                                search: 'idid'
+                            }} 
+                             >
+                            Submit
+                        </Link>
+                    </Button>
                 </Form>
             </div>
         );

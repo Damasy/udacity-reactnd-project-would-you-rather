@@ -13,7 +13,7 @@ class Home extends React.Component {
         return (
             <Tab.Pane>
                 {questions.map((question) => (
-                    <Question  fullQuestion/>
+                    <Question key={question} />
                 ))}
             </Tab.Pane> 
         );
