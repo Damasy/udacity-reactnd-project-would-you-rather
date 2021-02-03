@@ -19,7 +19,7 @@ class LeaderBoard extends React.Component {
                             <span className="value">4</span>
                         </div>
                     </div>
-                    <div className="top-score">
+                    <div className="col top-score">
                         <div className="title">Score</div>
                         <div className="sum">33</div>
                     </div>
