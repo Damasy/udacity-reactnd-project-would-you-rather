@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, Radio, Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import { getUserImage } from '../utilities/global';
 
 class Question extends React.Component {
     state = {
@@ -11,16 +12,23 @@ class Question extends React.Component {
         this.setState({ answer: value })
     }
 
+    onSubmitAnswer = (e) => {
+        e.preventDedault();
+    }
+
     renderAbstractedBody = () => {
+        const { optionOne, id } = this.props.question;
+
         return (
             <div className="abstract-q-body">
                 <div className="q-part">
-                    .. a ..
+                    {optionOne.text.slice(0,15) + '...'}
                 </div>
                 <button className="submit-btn poll">
                     <Link 
                         to={{
-                            pathname: '/questions/idid',
+                            pathname: '/questions/'+ id,
+                            isAnswer: this.props.isAnswer,
                         }} 
                         >
                         View Poll
@@ -31,34 +39,31 @@ class Question extends React.Component {
     }
 
     renderFullBody = () => {
+        const { optionOne, optionTwo } = this.props.question;
+
         return (
             <div className="full-body">
                  <Form className="q-form">
                     <Form.Field>
                     <Radio
-                        label='question first choise'
+                        label={optionOne?.text}
                         name='radioGroup'
-                        value='this'
-                        checked={this.state.answer === 'this'}
+                        value='optionOne'
+                        checked={this.state.answer === 'optionOne'}
                         onChange={this.handleChange}
                     />
                     </Form.Field>
                     <Form.Field>
                     <Radio
-                        label='question second choise'
+                        label={optionTwo?.text}
                         name='radioGroup'
-                        value='that'
-                        checked={this.state.answer === 'that'}
+                        value='optionTwo'
+                        checked={this.state.answer === 'optionTwo'}
                         onChange={this.handleChange}
                     />
                     </Form.Field>
                     <Button fluid className="submit-btn poll">
-                        <Link 
-                            to={{
-                                pathname: '/questions',
-                                search: 'idid'
-                            }} 
-                             >
+                        <Link to="/" onClick={this.onSubmitAnswer}>
                             Submit
                         </Link>
                     </Button>
@@ -68,18 +73,18 @@ class Question extends React.Component {
     }
 
     render() {
-        const { fullQuestion } = this.props;
+        const { fullQuestion, author } = this.props;
 
         return (
             <div className="card-wrapper">
                 <div className="row">
                     <div className="col">
-                        <div className="user-name asks"> User Name asks : </div>
+                        <div className="user-name asks">{ author?.name +' asks :'} </div>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col">
-                        <img className="user-avatar" src="./logo512.png" alt="" />
+                        <img className="user-avatar" src={getUserImage(author?.id)} alt={author?.name} />
                     </div>
                     <div className="col col-4">
                         <div className="user-name"> Would you rather </div>
@@ -90,5 +95,7 @@ class Question extends React.Component {
         )
     }
 }
+
+//Question.Proptypes = 
 
 export default Question;

@@ -123,6 +123,7 @@
     border: 1px solid #2086a2;
     width: 60%;
     top: 25px;
+    z-index: 90000;
   }
   .tabs .tab {
     display: block;
@@ -317,12 +318,12 @@
 .col {
   display: inline-block;
   flex-grow: 1;
-  border-right: 1px solid #2086a2;
+  border-left: 1px solid #2086a2;
   margin: auto;
 }
 
-.col:last-child {
-  border-right: 0px;
+.col:first-child {
+  border-left: 0px;
 }
 
 .col.col-2 {
@@ -383,6 +384,12 @@
   border-bottom: 1px solid #2086a2 !important;
 }
 
+@media screen and (max-width: 600px) {
+  .home .menu, .home .tab {
+    width: 100% !important;
+  }
+}
+
 .home .ui.tabular.menu .item {
   flex-grow: 2;
 }
@@ -424,6 +431,47 @@
 .full-body .q-form {
   padding: 10px;
   text-align: left;
+}
+
+.answer-rate {
+  padding: 10px;
+  box-shadow: inset 0px 0px 3px 0.5px #2086a2;
+  margin: 10px;
+  border-radius: 10px;
+  position: relative;
+  margin-bottom: 25px;
+}
+
+.answer-rate .answer-details {
+  text-align: left;
+  font-weight: bold;
+}
+
+.answer-rate .answer-progress {
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+.answer-progress  .bar {
+  background: #2086a2 !important;
+}
+
+.answer-rate .answer-count {
+  font-weight: bold;
+}
+
+.your-vote {
+    position: absolute;
+    top: -20px;
+    right: -12px;
+    width: 40px;
+    background: #61dafb;
+    font-size: x-small;
+    border-radius: 60px;
+    line-height: 1.5;
+    padding: 5px;
+    color: #fff;
+    font-weight: bold;
 }
 
 
