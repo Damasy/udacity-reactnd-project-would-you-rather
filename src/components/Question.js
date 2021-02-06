@@ -13,7 +13,8 @@ class Question extends React.Component {
     }
 
     onSubmitAnswer = (e) => {
-        e.preventDedault();
+        e.preventDefault();
+        this.props.onSubmitAnswer(this.state.answer)
     }
 
     renderAbstractedBody = () => {
@@ -62,8 +63,8 @@ class Question extends React.Component {
                         onChange={this.handleChange}
                     />
                     </Form.Field>
-                    <Button fluid className="submit-btn poll">
-                        <Link to="/" onClick={this.onSubmitAnswer}>
+                    <Button fluid className="submit-btn poll" onClick={this.onSubmitAnswer} disabled={!this.state.answer}>
+                        <Link to="/" >
                             Submit
                         </Link>
                     </Button>

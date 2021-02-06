@@ -1,5 +1,28 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import { Link } from 'react-router-dom';
+import { addNewQuestion } from "../Actions/Questions";
+import { addQuestionForUserAction } from '../Actions/Users'
 class NewQuestion extends React.Component {
+    optionOne;
+
+    optionTwo;
+
+    onSubmit = async (e) => {
+        e.preventDefault();
+        console.log('new     ---', this.optionOne?.value , this.optionTwo?.value)
+        if (this.optionOne?.value && this.optionTwo?.value) {
+            const { currentUser } = this.props.users;
+            const question = {
+                optionOneText: this.optionOne?.value,
+                optionTwoText: this.optionTwo?.value, 
+                author: currentUser.id
+            }
+            const questionId = await this.props.addNewQuestion(question);
+            this.props.addQuestionForUserAction(question.author,questionId);
+        }
+    };
+
     render() {
         return (
             <div className="page-container">
@@ -8,16 +31,26 @@ class NewQuestion extends React.Component {
                     <div className="question-desc">Complete the question:</div>
                     <div className="question-header">Would you rather</div>
                     <form className="question-form">
-                        <input type="text" className="question-option" 
-                                name="optionOne" id="optionOne" placeholder="Enter option one" />
+                        <input  type="text" 
+                                ref={(ref) => { this.optionOne = ref }}
+                                className="question-option" 
+                                name="optionOne" 
+                                id="optionOne" 
+                                placeholder="Enter option one" />
                         <div className="seperator-or">
                             <span></span>
                             <span className="or">OR</span>
                             <span></span>
                         </div>
-                        <input type="text" className="question-option" 
-                               name="optionTwo" id="optionTwo" placeholder="Enter option two" />
-                        <button className="submit-btn">Submit</button>
+                        <input  type="text" 
+                                ref={(ref) => { this.optionTwo = ref }}
+                                className="question-option" 
+                                name="optionTwo" 
+                                id="optionTwo" 
+                                placeholder="Enter option two" />
+                        <button className="submit-btn" onClick={this.onSubmit}>
+                            <Link to="/" > Submit </Link>
+                        </button>
                     </form>
                 </div>
             </div>
@@ -25,4 +58,13 @@ class NewQuestion extends React.Component {
     }
 }
 
-export default NewQuestion;
+const mapStateToProps = (state) => {
+    return {
+        users: state.Users,
+    }
+};
+
+export default connect(mapStateToProps, {
+  addNewQuestion,
+  addQuestionForUserAction,
+})(NewQuestion);

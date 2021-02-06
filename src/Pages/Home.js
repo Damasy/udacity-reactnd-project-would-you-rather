@@ -13,7 +13,7 @@ class Home extends React.Component {
        this.loadQuestions();
     }
 
-    loadQuestions = async () => {
+    loadQuestions = async () => {console.log('load questions --')
         const { currentUser } = this.props.users;
         if (currentUser?.id) {
             await this.props.loadAllQuestions(currentUser);
@@ -22,11 +22,11 @@ class Home extends React.Component {
 
     renderUnansweredQuestions = () => {
         const { questions } = this.props.questions;
-        const { users } = this.props.users;
+        const { users } = this.props.users;console.log('render un answered --', questions, users)
 
         return (
             <Tab.Pane>
-                {questions.map((question) => (
+                {questions && questions.map((question) => (
                     <Question 
                         key={question.id} 
                         question={question}

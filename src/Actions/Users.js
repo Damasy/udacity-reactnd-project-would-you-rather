@@ -3,6 +3,7 @@ import  * as API  from '../_DATA';
 const TOGGLE_LOGIN = 'TOGGLE_LOGIN';
 const UPDATE_CURRENT_USER = 'UPDATE_CURRENT_USER';
 const LOAD_ALL_USERS = 'LOAD_ALL_USERS';
+const Add_QUESTION_FOR_USER = 'Add_QUESTION_FOR_USER';
 
 const changeLoginAction = (login) => {
     return {
@@ -23,6 +24,13 @@ const loadAllUsersAction = (users) => {
     return {
         type: LOAD_ALL_USERS,
         payload: users,
+    }
+}
+
+const addQuestionForUserAction = (author, questionId) => {
+    return {
+        type: Add_QUESTION_FOR_USER,
+        payload: { author, questionId }
     }
 }
 
@@ -50,6 +58,9 @@ export {
     TOGGLE_LOGIN,
     UPDATE_CURRENT_USER,
     LOAD_ALL_USERS,
+    Add_QUESTION_FOR_USER,
     changeLoginStatus,
     loadAllUsers,
+    loadAllUsersAction,
+    addQuestionForUserAction,
 }

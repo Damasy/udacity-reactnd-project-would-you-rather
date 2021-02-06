@@ -2,6 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import Question from '../components/Question';
 import AnsweredQuestion from '../components/Answer';
+import { answerQuestion } from '../Actions/Questions';
+import { loadAllUsersAction } from '../Actions/Users';
 
 class QuestionDetails extends React.Component {
     state = {
@@ -21,6 +23,16 @@ class QuestionDetails extends React.Component {
         }
     }
 
+    onSubmitAnswer = async (answer) => {console.log('submit -', answer)
+        const questionData = {
+            authedUser: this.props.users.currentUser.id, 
+            qid : this.props.match.params.question_id, 
+            answer,
+        }
+        const updatedUsers = await this.props.answerQuestion(questionData);
+        this.props.loadAllUsersAction(updatedUsers);
+    }
+
     getCurrentUserAnswer = (answer) => {
         const { currentUser } = this.props.users;
         if (answer.optionOne?.votes?.indexOf(currentUser.id) !== -1) {
@@ -37,6 +49,7 @@ class QuestionDetails extends React.Component {
                 <Question 
                     question={question}
                     author={users[question.author]}
+                    onSubmitAnswer={this.onSubmitAnswer}
                     fullQuestion
                 />
         );
@@ -59,7 +72,7 @@ class QuestionDetails extends React.Component {
         const { users } = this.props.users;
 
         return (
-          <div className="page-container home">
+          <div className="page-container">
             {!isAnswer
               ? this.renderQuestion(currentQuestion, users)
               : this.renderAnsweredQuestion(currentQuestion, users)}
@@ -75,4 +88,4 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps) (QuestionDetails);
+export default connect(mapStateToProps, { answerQuestion, loadAllUsersAction }) (QuestionDetails);
