@@ -2,23 +2,53 @@ import React from 'react';
 import {connect} from 'react-redux';
 import Question from '../components/Question';
 import AnsweredQuestion from '../components/Answer';
-import { answerQuestion } from '../Actions/Questions';
+import { answerQuestion, loadAllQuestions } from '../Actions/Questions';
 import { addUserAnswer } from '../Actions/Users';
 
 class QuestionDetails extends React.Component {
     state = {
         currentQuestion: '',
+        isAnswer: false,
+        questionNotFound: false,
     }
 
     componentDidMount () {
         this.loadQuestion();
     }
 
+    componentDidUpdate() {
+        const { currentQuestion, questionNotFound } = this.state;
+        if (!currentQuestion && !questionNotFound) {
+            this.loadQuestion()
+        }
+    }
+
     loadQuestion = () => {
         const id = this.props.match.params.question_id;
         const { allQuestions } = this.props.questions;
         if (id && allQuestions[id]) {
-            this.setState({ currentQuestion: allQuestions[id]})
+            this.setState({
+              currentQuestion: allQuestions[id],
+              isAnswer: this.props.location?.isAnswer,
+            });
+            return;
+        }
+        this.loadQuestionFromURL(id);
+    }
+
+    loadQuestionFromURL = async (questionId) => {
+        const { currentUser } = this.props.users;
+        if (currentUser) {
+            await this.props.loadAllQuestions(currentUser);
+            const { allQuestions } = this.props.questions;
+            if (allQuestions && allQuestions[questionId]) {
+                this.setState({
+                  currentQuestion: allQuestions[questionId],
+                  isAnswer: !!currentUser.answers[questionId],
+                });
+            } else {
+                this.setState({ questionNotFound: true });
+            }
         }
     }
 
@@ -67,17 +97,28 @@ class QuestionDetails extends React.Component {
     }
 
     render() {
-        const { isAnswer } = this.props.location;
-        const { currentQuestion } = this.state;
+        const { currentQuestion, isAnswer, questionNotFound } = this.state;
         const { users } = this.props.users;
-
-        return (
-          <div className="page-container">
-            {!isAnswer
-              ? this.renderQuestion(currentQuestion, users)
-              : this.renderAnsweredQuestion(currentQuestion, users)}
-          </div>
-        );
+        if (questionNotFound) {
+            return (
+                <div className="page-container">
+                  <div className="four-o-four">
+                      404  :(
+                  </div>
+                  <div className="not-found">
+                      OOPS .. , NOT FOUND
+                  </div>
+                </div>
+              ); 
+        } else {
+            return (
+                <div className="page-container">
+                  {!isAnswer
+                    ? this.renderQuestion(currentQuestion, users)
+                    : this.renderAnsweredQuestion(currentQuestion, users)}
+                </div>
+              ); 
+        }
     }
 }
 
@@ -88,4 +129,8 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps, { answerQuestion, addUserAnswer }) (QuestionDetails);
+export default connect(mapStateToProps, {
+  answerQuestion,
+  addUserAnswer,
+  loadAllQuestions,
+})(QuestionDetails);

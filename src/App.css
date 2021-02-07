@@ -483,5 +483,15 @@
     font-weight: bold;
 }
 
+.four-o-four {
+  margin-top: 20%;
+}
+
+.four-o-four , .not-found {
+  font-size: xxx-large;
+  color: #2086a2;
+  line-height: 2;
+}
+
 
 
