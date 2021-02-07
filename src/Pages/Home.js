@@ -50,8 +50,22 @@ class Home extends React.Component {
         const { questions, answers } = this.props.questions;
         const { users } = this.props.users;
         const panes = [
-            { menuItem: 'Unanswered Questions', render: () => this.renderUnansweredQuestions(questions, users) },
-            { menuItem: 'Answered Questions', render: () => this.renderAnsweredQuestions(answers, users)  },
+          {
+            menuItem: "Unanswered Questions",
+            render: () =>
+              this.renderUnansweredQuestions(
+                questions.sort((a, b) => b.timestamp - a.timestamp),
+                users
+              ),
+          },
+          {
+            menuItem: "Answered Questions",
+            render: () =>
+              this.renderAnsweredQuestions(
+                answers.sort((a, b) => b.timestamp - a.timestamp),
+                users
+              ),
+          },
         ];
 
         return (
