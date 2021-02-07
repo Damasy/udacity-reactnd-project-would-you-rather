@@ -1,12 +1,12 @@
 import React from 'react';
 import logo from '../logo.svg';
 import { Dropdown } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
 class Login extends React.Component {
     onBtnClick = (e) => {
         e.preventDefault();
         if (this.selectUser?.state?.value) {
-            console.log('selec', this.selectUser.state.value);
             this.props.onLoginClick(this.selectUser.state.value);
         }
     }
@@ -31,6 +31,7 @@ class Login extends React.Component {
                     <button 
                         className="login-btn" 
                         onClick={this.onBtnClick}> 
+                        <Link to="/"></Link>
                             login
                     </button>
                 </form>

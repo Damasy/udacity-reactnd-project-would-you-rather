@@ -5,25 +5,18 @@ import Question from '../components/Question';
 import { loadAllQuestions } from '../Actions/Questions';
 
 class Home extends React.Component {
-    state = {
-        questions: [1,2],
-    }
-
     componentDidMount () {
        this.loadQuestions();
     }
 
-    loadQuestions = async () => {console.log('load questions --')
+    loadQuestions = async () => {
         const { currentUser } = this.props.users;
         if (currentUser?.id) {
             await this.props.loadAllQuestions(currentUser);
         }
     }
 
-    renderUnansweredQuestions = () => {
-        const { questions } = this.props.questions;
-        const { users } = this.props.users;console.log('render un answered --', questions, users)
-
+    renderUnansweredQuestions = (questions, users) => {
         return (
             <Tab.Pane>
                 {questions && questions.map((question) => (
@@ -37,9 +30,7 @@ class Home extends React.Component {
         );
     }
 
-    renderAnsweredQuestions = () => {
-        const { answers } = this.props.questions;
-        const { users } = this.props.users;
+    renderAnsweredQuestions = (answers, users) => {
 
         return (
             <Tab.Pane>
@@ -56,9 +47,11 @@ class Home extends React.Component {
     }
 
     render() {
+        const { questions, answers } = this.props.questions;
+        const { users } = this.props.users;
         const panes = [
-            { menuItem: 'Unanswered Questions', render: this.renderUnansweredQuestions },
-            { menuItem: 'Answered Questions', render: this.renderAnsweredQuestions  },
+            { menuItem: 'Unanswered Questions', render: () => this.renderUnansweredQuestions(questions, users) },
+            { menuItem: 'Answered Questions', render: () => this.renderAnsweredQuestions(answers, users)  },
         ];
 
         return (

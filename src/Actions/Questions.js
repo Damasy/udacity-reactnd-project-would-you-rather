@@ -69,7 +69,7 @@ const addNewQuestion = (question) => {
 const answerQuestion = (questionData) => {
     return async (dispatch) => {
         const {users, questions } = await API._saveQuestionAnswer(questionData);
-        if (questions) { console.log('question action ', questions)
+        if (questions) {
             dispatch(addQuestionAnswerAction(questionData.qid, questions));  
             return users;
         }

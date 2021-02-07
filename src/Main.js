@@ -22,7 +22,7 @@ class Main extends React.Component {
         }
     }
 
-    renderBody = () => {console.log('log', this.props)
+    renderBody = () => {
         const { isLoggedIn } = this.props.user;
         if (isLoggedIn) {
             return (

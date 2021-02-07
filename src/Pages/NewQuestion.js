@@ -10,7 +10,6 @@ class NewQuestion extends React.Component {
 
     onSubmit = async (e) => {
         e.preventDefault();
-        console.log('new     ---', this.optionOne?.value , this.optionTwo?.value)
         if (this.optionOne?.value && this.optionTwo?.value) {
             const { currentUser } = this.props.users;
             const question = {

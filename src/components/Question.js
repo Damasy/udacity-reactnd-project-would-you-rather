@@ -64,9 +64,7 @@ class Question extends React.Component {
                     />
                     </Form.Field>
                     <Button fluid className="submit-btn poll" onClick={this.onSubmitAnswer} disabled={!this.state.answer}>
-                        <Link to="/" >
                             Submit
-                        </Link>
                     </Button>
                 </Form>
             </div>

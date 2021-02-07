@@ -2,7 +2,8 @@ import {
     TOGGLE_LOGIN, 
     UPDATE_CURRENT_USER, 
     LOAD_ALL_USERS,
-    Add_QUESTION_FOR_USER,
+    ADD_QUESTION_FOR_USER,
+    ADD_USER_ANSWER,
 } from '../Actions/Users';
 
 const defaultState = {
@@ -28,11 +29,17 @@ function Users (state = defaultState, action) {
                 ...state, 
                 users: action.payload 
             };
-        case Add_QUESTION_FOR_USER:
+        case ADD_QUESTION_FOR_USER:
             state.users[action.payload.author].questions.push(action.payload.questionId);
             
             return { 
                 ...state, 
+            };
+        case ADD_USER_ANSWER:
+            return { 
+                ...state,
+                users: action.payload.users,
+                currentUser: action.payload.currentUser,
             };
         default:
            return state;

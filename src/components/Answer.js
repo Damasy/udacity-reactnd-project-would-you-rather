@@ -4,7 +4,7 @@ import { getUserImage } from '../utilities/global';
 
 class AnsweredQuestion extends React.Component {
     
-    render() {console.log('answer', this.props)
+    render() {
         const { author, answer } = this.props;
         const optionOneVote = answer.optionOne?.votes.length;
         const optionTwoVote = answer.optionTwo?.votes.length;

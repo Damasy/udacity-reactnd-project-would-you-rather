@@ -37,9 +37,6 @@ function Questions(state = defaultState, action) {
               ),
               1
             );
-            state.answers.push(
-              action.payload.questions[action.payload.questionId]
-            );
             return {
                 ...state,
                 allQuestions: action.payload.questions,

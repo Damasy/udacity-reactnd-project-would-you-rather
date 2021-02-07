@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import Question from '../components/Question';
 import AnsweredQuestion from '../components/Answer';
 import { answerQuestion } from '../Actions/Questions';
-import { loadAllUsersAction } from '../Actions/Users';
+import { addUserAnswer } from '../Actions/Users';
 
 class QuestionDetails extends React.Component {
     state = {
@@ -18,19 +18,19 @@ class QuestionDetails extends React.Component {
         const id = this.props.match.params.question_id;
         const { allQuestions } = this.props.questions;
         if (id && allQuestions[id]) {
-            console.log('q ---', allQuestions[id],this.props )
             this.setState({ currentQuestion: allQuestions[id]})
         }
     }
 
-    onSubmitAnswer = async (answer) => {console.log('submit -', answer)
+    onSubmitAnswer = async (answer) => {
         const questionData = {
             authedUser: this.props.users.currentUser.id, 
             qid : this.props.match.params.question_id, 
             answer,
         }
         const updatedUsers = await this.props.answerQuestion(questionData);
-        this.props.loadAllUsersAction(updatedUsers);
+        this.props.addUserAnswer(updatedUsers, questionData.authedUser);
+        this.props.history.push('/');
     }
 
     getCurrentUserAnswer = (answer) => {
@@ -88,4 +88,4 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps, { answerQuestion, loadAllUsersAction }) (QuestionDetails);
+export default connect(mapStateToProps, { answerQuestion, addUserAnswer }) (QuestionDetails);
