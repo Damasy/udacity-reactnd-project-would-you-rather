@@ -1,11 +1,11 @@
 import './App.css';
-import {createStore, applyMiddleware} from 'redux';
+import {createStore} from 'redux';
 import {Provider} from 'react-redux';
-import thunk from 'redux-thunk';
 import combinedReducers from './Reducers/reduces';
+import middleware from './Middleware';
 import Main from './Main'
 
-const store = createStore(combinedReducers, applyMiddleware(thunk))
+const store = createStore(combinedReducers, middleware)
 
 function App() {
   return (

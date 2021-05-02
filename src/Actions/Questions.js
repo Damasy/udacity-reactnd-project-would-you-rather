@@ -1,4 +1,4 @@
-import  * as API  from '../_DATA';
+import  * as API  from '../Data/_DATA';
 
 const LOAD_ALL_QUESTIONS = 'LOAD_ALL_QUESTIONS';
 const ADD_NEW_QUESTION = 'ADD_NEW_QUESTION';

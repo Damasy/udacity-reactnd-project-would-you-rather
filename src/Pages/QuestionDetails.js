@@ -4,6 +4,7 @@ import Question from '../components/Question';
 import AnsweredQuestion from '../components/Answer';
 import { answerQuestion, loadAllQuestions } from '../Actions/Questions';
 import { addUserAnswer } from '../Actions/Users';
+import NotFound from './NotFound';
 
 class QuestionDetails extends React.Component {
     state = {
@@ -101,14 +102,7 @@ class QuestionDetails extends React.Component {
         const { users } = this.props.users;
         if (questionNotFound) {
             return (
-                <div className="page-container">
-                  <div className="four-o-four">
-                      404  :(
-                  </div>
-                  <div className="not-found">
-                      OOPS .. , NOT FOUND
-                  </div>
-                </div>
+                <NotFound />
               ); 
         } else {
             return (

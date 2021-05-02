@@ -1,4 +1,4 @@
-import  * as API  from '../_DATA';
+import  * as API  from '../Data/_DATA';
 
 const TOGGLE_LOGIN = 'TOGGLE_LOGIN';
 const UPDATE_CURRENT_USER = 'UPDATE_CURRENT_USER';

@@ -9,6 +9,7 @@ import NewQuestion from './Pages/NewQuestion';
 import QuestionDetails from './Pages/QuestionDetails'
 import { changeLoginStatus, loadAllUsers } from './Actions/Users';
 import { formateUsersList } from './utilities/global';
+import NotFound from './Pages/NotFound';
 
 class Main extends React.Component {
     componentDidMount () {
@@ -31,6 +32,7 @@ class Main extends React.Component {
                     <Route path ="/leaderboard" component={LeaderBoard} />
                     <Route path ="/add" component={NewQuestion} />
                     <Route path ="/questions/:question_id" component={QuestionDetails} />
+                    <Route path="/404" component={NotFound}/>
                 </Switch>
             )
         } else {
